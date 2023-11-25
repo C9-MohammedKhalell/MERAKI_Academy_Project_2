@@ -166,7 +166,6 @@ main {
 .movie-info span.red {
   color: red;
 }
-
 .overview {
   position: absolute;
   left: 0;
@@ -179,6 +178,22 @@ main {
   transition: transform 0.3s ease-in;
   cursor: pointer;
   user-select: none;
+}
+
+
+.btn{
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  outline: none;
+  color: grey;
+  position: absolute;
+
+}
+
+.btn:hover{
+  cursor: pointer;
+  color: #0d144f;
 }
 
 .overview h3 {

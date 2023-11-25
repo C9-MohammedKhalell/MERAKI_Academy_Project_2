@@ -101,7 +101,7 @@ let nextPage = 2;
 let prevPage = 3;
 let lastUrl = "";
 let totalPages = 100;
-let Favorite=[]
+let Favorite = [];
 // Get Movie Genres
 
 let selectedGenre = [];
@@ -127,7 +127,7 @@ function setGenre() {
           selectedGenre.push(genre.id);
         }
       }
-     
+
       getMovies(API_URL + "&with_genres=" + encodeURI(selectedGenre.join(",")));
       highlightSelection();
     });
@@ -155,7 +155,7 @@ function clearBtn() {
   let clearBtn = document.getElementById("clear");
   if (clearBtn) {
     clearBtn.classList.add("highlight");
-  } 
+  }
 }
 
 // Get Movies
@@ -166,7 +166,6 @@ function getMovies(url) {
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
-    
       if (data.results.length !== 0) {
         showMovies(data.results);
         currentPage = data.page;
@@ -203,8 +202,11 @@ function showMovies(data) {
   data.forEach((movie) => {
     const { title, poster_path, vote_average, overview, id } = movie;
     const movieEl = document.createElement("div");
+    const btn = document.getElementById("btn");
     movieEl.classList.add("movie");
     movieEl.innerHTML = `
+    <Button  id="btn" class="btn"><i class="fas fa-heart"></i></Button>
+
              <img src="${
                poster_path ? IMG_URL + poster_path : ""
              }" alt="${title}">
@@ -215,16 +217,34 @@ function showMovies(data) {
             <div class="overview">
                 <h3>${title}</h3>
                 ${overview}
-             
+            
                 <br/> 
             </div>
-        
+           
+              
         `;
-
+        
+              
+          $(btn).on ("click" ,function (){
+            console.log("asjdansd");
+                    if ($(this).css("color")=='rgb(255, 0, 0)') {
+                     $(this).css('color','grey')
+                    }
+                    else{
+                     $(this).css('color','red')
+                    }
+           })
+         
+          
+        console.log(btn);
+        /* console.log(document.getElementById(id));
+        document.getElementById(id).addEventListener("click", () => {
+          console.log(id);
+        }); */
     main.appendChild(movieEl);
-
   });
 }
+
 
 function getColor(vote) {
   if (vote >= 8) {
@@ -235,7 +255,6 @@ function getColor(vote) {
     return "red";
   }
 }
-
 // Search Any Movie on Search Bar
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -249,9 +268,9 @@ form.addEventListener("submit", (e) => {
     getMovies(API_URL);
   }
 });
-favorite?.addEventListener('click', () => {
-    alert('You clicked the button');
-  });
+favorite?.addEventListener("click", () => {
+  alert("You clicked the button");
+});
 
 // Go to current, Next & Previous Page
 prev.addEventListener("click", () => {
